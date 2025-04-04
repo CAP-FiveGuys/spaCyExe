@@ -44,6 +44,17 @@ if __name__=="__main__":
                         FOREIGN KEY (textid) REFERENCES texts (textid)
                     )
                 """)
+        cur.execute("""
+                    CREATE TABLE sentence (
+                        textid INTEGER NOT NULL,
+                        sentid INTEGER,
+                        start INTEGER NOT NULL,
+                        end INTEGER,
+                        sent TEXT,
+                        PRIMARY KEY (textid, sentid),
+                        FOREIGN KEY (textid) REFERENCES texts (textid)
+                    )
+                    """)
         conn.commit()
     except  sqlite3.Error as e:{
     }
@@ -77,5 +88,14 @@ if __name__=="__main__":
         print(f"SQLite 에러 발생: {e}")
         print(-1)
         sys.exit()
+    for sent in doc.sents:
+        print(sent.text)
+    try:
+        for sent in doc.sents:
+            cur.execute("""
+                            INSERT INTO sentence VALUES(?, ?, ?, ?, ?)
+                        """,(textid, sent.id,sent.start,len(sent.text),sent.text))
+            conn.commit()
+    except sqlite3.Error as e:{}
         
     print(textid)
