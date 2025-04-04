@@ -1,0 +1,5 @@
+패키지 설치
+pip install -r requirements.txt
+
+exe 빌드
+pyinstaller --onefile --add-data "model/en_core_web_sm;model/en_core_web_sm" main.py
