@@ -88,8 +88,8 @@ if __name__=="__main__":
         print(f"SQLite 에러 발생: {e}")
         print(-1)
         sys.exit()
-    for sent in doc.sents:
-        print(sent.text)
+    # for sent in doc.sents:
+    #     print(sent.text)
     try:
         for sent in doc.sents:
             cur.execute("""
